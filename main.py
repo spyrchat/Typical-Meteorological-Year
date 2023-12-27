@@ -1,14 +1,13 @@
+"""
+ΟΝΟΜΑΤΕΠΩΝΥΜΟ: Χρήστος Μπιγδέλης
+ΑΜ: 151930
+"""
 import urllib.request, urllib.parse, urllib.error
 import math
 import numpy as np
 import matplotlib.pyplot as plt
 import os
-"""
-ΟΝΟΜΑΤΕΠΩΝΥΜΟ: Χρήστος Μπιγδέλης
-ΑΜ: 151930
-"""
-
-# <--- ΕΔΩ ΘΑ ΜΠΟΥΝ ΟΙ ΒΙΒΛΙΟΘΗΚΕΣ ΠΟΥ ΘΑ ΧΡΗΣΙΜΟΠΟΙΉΣΕΤΕ
+plt.close('all')
 
 def get_tmy(lati, long):
     time_UTC, WD10m = [], []
@@ -55,34 +54,40 @@ def get_tmy(lati, long):
 
 
 def plot_mean_wd_per_hour(wd_list):
-    hours = list(mean_wind_directions.keys())
-    directions = list(mean_wind_directions.values())
+    hours = sorted(wd_list.keys())  # Ensure the hours are sorted
+    directions = [wd_list[h] for h in hours]  # Sort directions according to sorted hours
 
-    plt.scatter(hours, directions)
-    plt.xlabel('Hour of the Day')
-    plt.ylabel('Mean Wind Direction (Degrees)')
-    plt.title('Mean Wind Direction Per Hour')
-    plt.plot(hours, directions, '--', label='Dashed Line')
+    plt.figure(figsize=(10, 6))  # Set a figure size for better visibility
+    plt.scatter(hours, directions, marker='o', s=100)  # Increase marker size
+    plt.plot(hours, directions, 'b--', label='Μεταβολή στη διάρκεια της ημέρας')  # Add color to the dashed line for visibility
+    plt.xlabel('Ώρα της Ημέρας')
+    plt.ylabel('Μεση Κατεύθυνση Ανέμου (μοίρες)')
+    plt.title('Μέση Κατεύθυνσης Ανέμου ανά ώρα ενός ΤΜΕ')
+    plt.xticks(range(0, 24))
+    plt.legend()  # Add a legend
     plt.grid(True)
-    plt.text(0.5, 1.1, "Χρήστος Μπιγδέλης, 151930", ha='center', va='bottom', transform=plt.gca().transAxes)
-    # Saving the plot as a JPEG file
-    folder_path = r'C:\dewp2023'
 
-    # Check if the folder exists, and create it if not
+    for i, txt in enumerate(directions):
+        plt.annotate(f"{txt:.2f}", (hours[i], directions[i]), textcoords="offset points", xytext=(0,10), ha='center')
+
+    # Adjust the placement of the name and student number to be within the plot area
+    plt.text(0.5, -0.1, "Χρήστος Μπιγδέλης, 151930", 
+             ha='center', va='center', 
+             transform=plt.gca().transAxes, fontsize=10)
+
+    folder_path = r'C:\dewp2023'
     if not os.path.exists(folder_path):
         os.makedirs(folder_path)
 
-    # Your plot code here
-
-    # Save the plot in the created folder
     plt.savefig(os.path.join(folder_path, '151930_graph3.jpeg'))
-    # plt.savefig('C:\\BLABLA\\151930_graph3.jpeg')
-
     plt.show()
+
+
+
 
 # ΣΧΟΛΙΑΣΕΤΕ ΤΟΝ ΚΩΔΙΚΑ ΣΑΣ
 
 if __name__ == "__main__":
-    mean_wind_directions = get_tmy(41.141816091983856, 24.891168951039393)
-    print(mean_wind_directions)
-    plot_mean_wd_per_hour(mean_wind_directions)
+    wd_list = get_tmy(41.141816091983856, 24.891168951039393)
+    print(wd_list)
+    plot_mean_wd_per_hour(wd_list)
