@@ -57,7 +57,7 @@ def plot_mean_wd_per_hour(wd_list):
     hours = sorted(wd_list.keys())  # Ensure the hours are sorted
     directions = [wd_list[h] for h in hours]  # Sort directions according to sorted hours
 
-    plt.figure(figsize=(10, 6))  # Set a figure size for better visibility
+    plt.figure(figsize=(12, 8))  # Set a figure size for better visibility
     plt.scatter(hours, directions, marker='o', s=100)  # Increase marker size
     plt.plot(hours, directions, 'b--', label='Μεταβολή στη διάρκεια της ημέρας')  # Add color to the dashed line for visibility
     plt.xlabel('Ώρα της Ημέρας')
