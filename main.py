@@ -61,7 +61,7 @@ def plot_mean_wd_per_hour(wd_list):
     plt.scatter(hours, directions, marker='o', s=100)  # Increase marker size
     plt.plot(hours, directions, 'b--', label='Μεταβολή στη διάρκεια της ημέρας')  # Add color to the dashed line for visibility
     plt.xlabel('Ώρα της Ημέρας')
-    plt.ylabel('Μεση Κατεύθυνση Ανέμου (μοίρες)')
+    plt.ylabel('Μέση Κατεύθυνση Ανέμου (μοίρες)')
     plt.title('Μέση Κατεύθυνσης Ανέμου ανά ώρα ενός ΤΜΕ')
     plt.xticks(range(0, 24))
     plt.legend()  # Add a legend
