@@ -12,7 +12,7 @@ def get_tmy(lati, long):
 
         for line in fhand:
             line = line.decode().strip()
-            if line.startswith("20"):  # Check for data lines
+            if line.startswith("20"): 
                 words = line.split(',')
                 time_UTC.append(words[0])
                 WD10m.append(float(words[8]))  # Wind Direction is the 9th item in the list
@@ -21,12 +21,12 @@ def get_tmy(lati, long):
         print(f"An error occurred: {e}")
         return
 
-    # Process wind direction data
+    
     hourly_wind_data = {hour: [] for hour in range(24)}
 
     for i, wind_direction in enumerate(WD10m):
         try:
-            hour = int(time_UTC[i].split(':')[1][:2])  # Extract hour
+            hour = int(time_UTC[i].split(':')[1][:2])
             hourly_wind_data[hour].append(wind_direction)
         except Exception as e:
             print(f"Error processing time_UTC[{i}]: {time_UTC[i]}, Error: {e}")
@@ -48,17 +48,17 @@ def get_tmy(lati, long):
 
 
 def plot_mean_wd_per_hour(wd_list):
-    hours = sorted(wd_list.keys())  # Ensure the hours are sorted
-    directions = [wd_list[h] for h in hours]  # Sort directions according to sorted hours
+    hours = sorted(wd_list.keys())
+    directions = [wd_list[h] for h in hours]
 
-    plt.figure(figsize=(12, 8))  # Set a figure size for better visibility
-    plt.scatter(hours, directions, marker='o', s=100)  # Increase marker size
-    plt.plot(hours, directions, 'b--', label='Variation in the duration of the Day')  # Add color to the dashed line for visibility
+    plt.figure(figsize=(12, 8))
+    plt.scatter(hours, directions, marker='o', s=100)
+    plt.plot(hours, directions, 'b--', label='Variation in the duration of the Day')
     plt.xlabel('Hour of the Day (UTC)')
     plt.ylabel('Mean Wind Direction (degrees)')
     plt.title('Mean Wind Direction per Hour of the Day (UTC)')
     plt.xticks(range(0, 24))
-    plt.legend()  # Add a legend
+    plt.legend()
     plt.grid(True)
 
     for i, txt in enumerate(directions):
