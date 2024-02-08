@@ -7,4 +7,4 @@ This repository features a prototype code designed to create visual plots of ave
 
 1. Clone or download the repository: Obtain the code on your local machine for further actions.
 2. Configure `main.py`: Modify the script in main.py to specify the desired geographical latitude and longitude for which you want to process the data.
-3. Execute `main.py`: Run the script to generate and view the wind direction plots based on your specified location.
+3. Execute `main.py`: Run the script to generate and view the wind direction plots based on your specified location. After the execution the plot will be saved under `C:\wind_direction_data_plots`
